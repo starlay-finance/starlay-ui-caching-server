@@ -221,7 +221,7 @@ export class StarlayCustomProvider extends providers.StaticJsonRpcProvider {
   }
 
   /**
-   * Get the internal aave provider context
+   * Get the internal starlay provider context
    */
   private getInternalStarlayProviderContext(): InternalStarlayProviderContext {
     return this._context as InternalStarlayProviderContext;
