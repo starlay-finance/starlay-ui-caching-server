@@ -1,30 +1,30 @@
 import { providers } from 'ethers';
 import { fetchJson } from 'ethers/lib/utils';
 import { AlreadyUsedNodeContext } from './models/already-used-node-context';
-import { InternalAaveProviderContext } from './models/internal-aave-provider-context';
+import { InternalStarlayProviderContext } from './models/internal-starlay-provider-context';
 import { StarlayProviderContext } from './models/starlay-provider-context';
 
 export class AaveCustomProvider extends providers.StaticJsonRpcProvider {
   private _alreadyUsedNodes: AlreadyUsedNodeContext[] = [];
   private _mainNode: string | undefined;
   constructor(
-    private _context: StarlayProviderContext | InternalAaveProviderContext,
-    private _generate: (context: InternalAaveProviderContext) => AaveCustomProvider
+    private _context: StarlayProviderContext | InternalStarlayProviderContext,
+    private _generate: (context: InternalStarlayProviderContext) => AaveCustomProvider
   ) {
     super({ url: _context.selectedNode, throttleSlotInterval: _context.maxTimout });
 
     // get the internal context so we dont cast everywhere but we have checks below
-    // to make sure we map to the correct context aka `AaveProviderContext | InternalAaveProviderContext`
-    const internalAaveProviderContext = this.getInternalAaveProviderContext();
+    // to make sure we map to the correct context aka `AaveProviderContext | InternalStarlayProviderContext`
+    const internalStarlayProviderContext = this.getInternalStarlayProviderContext();
 
-    if (internalAaveProviderContext.alreadyUsedNodes) {
-      this._alreadyUsedNodes = internalAaveProviderContext.alreadyUsedNodes;
+    if (internalStarlayProviderContext.alreadyUsedNodes) {
+      this._alreadyUsedNodes = internalStarlayProviderContext.alreadyUsedNodes;
     }
 
-    if (!internalAaveProviderContext.mainNode) {
+    if (!internalStarlayProviderContext.mainNode) {
       this._mainNode = this._context.selectedNode;
     } else {
-      this._mainNode = internalAaveProviderContext.mainNode;
+      this._mainNode = internalStarlayProviderContext.mainNode;
     }
 
     if (!this._context.mainNodeReconnectionSettings) {
@@ -162,7 +162,7 @@ export class AaveCustomProvider extends providers.StaticJsonRpcProvider {
   private async switchBackToMainNode(method: string, params: Array<any>): Promise<any> {
     const newSelectedNode = this._mainNode;
 
-    const context = this.getInternalAaveProviderContext();
+    const context = this.getInternalStarlayProviderContext();
     if (context.mainNodeReconnectionContext) {
       context.mainNodeReconnectionContext.reconnectAttempts =
         context.mainNodeReconnectionContext.reconnectAttempts + 1;
@@ -198,7 +198,7 @@ export class AaveCustomProvider extends providers.StaticJsonRpcProvider {
       return false;
     }
 
-    const context = this.getInternalAaveProviderContext();
+    const context = this.getInternalStarlayProviderContext();
     if (!context.mainNodeReconnectionContext) {
       return false;
     }
@@ -223,7 +223,7 @@ export class AaveCustomProvider extends providers.StaticJsonRpcProvider {
   /**
    * Get the internal aave provider context
    */
-  private getInternalAaveProviderContext(): InternalAaveProviderContext {
-    return this._context as InternalAaveProviderContext;
+  private getInternalStarlayProviderContext(): InternalStarlayProviderContext {
+    return this._context as InternalStarlayProviderContext;
   }
 }

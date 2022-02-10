@@ -1,5 +1,5 @@
 import { AaveCustomProvider } from './aave-custom-provider';
-import { InternalAaveProviderContext } from './models/internal-aave-provider-context';
+import { InternalStarlayProviderContext } from './models/internal-starlay-provider-context';
 import { StarlayProviderContext } from './models/starlay-provider-context';
 
 export const generate: (context: StarlayProviderContext) => AaveCustomProvider = (
@@ -8,7 +8,7 @@ export const generate: (context: StarlayProviderContext) => AaveCustomProvider =
   return new AaveCustomProvider(context, internalGenerate);
 };
 
-const internalGenerate: (context: InternalAaveProviderContext) => AaveCustomProvider = (
+const internalGenerate: (context: InternalStarlayProviderContext) => AaveCustomProvider = (
   context: StarlayProviderContext
 ) => {
   return new AaveCustomProvider(context, internalGenerate);

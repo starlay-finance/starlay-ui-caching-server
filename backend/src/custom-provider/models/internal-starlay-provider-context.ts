@@ -1,7 +1,7 @@
 import { AlreadyUsedNodeContext } from './already-used-node-context';
 import { BaseProviderContext } from './base-provider-context';
 
-export interface InternalAaveProviderContext extends BaseProviderContext {
+export interface InternalStarlayProviderContext extends BaseProviderContext {
   alreadyUsedNodes: AlreadyUsedNodeContext[];
   mainNode: string;
   mainNodeReconnectionContext?:
