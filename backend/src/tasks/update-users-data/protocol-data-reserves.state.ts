@@ -1,4 +1,4 @@
-import { RESERVES_LIST_VALIDITY_INTERVAL, CONFIG } from '../../config';
+import { CONFIG, RESERVES_LIST_VALIDITY_INTERVAL } from '../../config';
 import { sleep } from '../../helpers/utils';
 import { getProtocolData } from '../../services/pool-data';
 
@@ -14,7 +14,7 @@ export const fetchAndAdd = async (lendingPoolAddressProvider: string) => {
   const reservesList: string[] = [];
   (await getProtocolData(lendingPoolAddressProvider)).reserves.forEach((reserve) => {
     reservesList.push(
-      reserve.aTokenAddress,
+      reserve.lTokenAddress,
       reserve.stableDebtTokenAddress,
       reserve.variableDebtTokenAddress
     );
