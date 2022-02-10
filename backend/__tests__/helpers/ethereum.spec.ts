@@ -17,8 +17,8 @@ jest.mock('../../src/redis', () => ({
 describe('ethereum', () => {
   describe('ethereumProvider', () => {
     // when we start using the custom provider then add this test back in
-    // xit('should be instance of `AaveCustomProvider`', () => {
-    //   expect(ethereumProvider).toBeInstanceOf(AaveCustomProvider);
+    // xit('should be instance of `StarlayCustomProvider`', () => {
+    //   expect(ethereumProvider).toBeInstanceOf(StarlayCustomProvider);
     // });
 
     it('should be instance of `JsonRpcProvider`', () => {

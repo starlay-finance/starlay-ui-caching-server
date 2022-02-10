@@ -27,11 +27,11 @@ export class UserIncentivesData {
   underlyingAsset: string;
 
   @Field(() => TokenIncentivesUserData)
-  aTokenIncentivesUserData: TokenIncentivesUserData;
+  lTokenIncentivesUserData: TokenIncentivesUserData;
 
   @Field(() => TokenIncentivesUserData)
-  vTokenIncentivesUserData: TokenIncentivesUserData;
+  vdTokenIncentivesUserData: TokenIncentivesUserData;
 
   @Field(() => TokenIncentivesUserData)
-  sTokenIncentivesUserData: TokenIncentivesUserData;
+  sdTokenIncentivesUserData: TokenIncentivesUserData;
 }

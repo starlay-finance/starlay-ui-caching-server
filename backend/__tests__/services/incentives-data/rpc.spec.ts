@@ -15,11 +15,11 @@ describe('rpc', () => {
       expect(result).toBeInstanceOf(Array);
       const response = result[0];
       expect(response).toBeInstanceOf(Object);
-      expect(response.aIncentiveData).toBeInstanceOf(Object);
-      expect(response.vIncentiveData).toBeInstanceOf(Object);
-      expect(response.sIncentiveData).toBeInstanceOf(Object);
-      expect(typeof response.aIncentiveData.emissionPerSecond).toEqual('string');
-      expect(typeof response.aIncentiveData.emissionEndTimestamp).toEqual('number');
+      expect(response.lIncentiveData).toBeInstanceOf(Object);
+      expect(response.vdIncentiveData).toBeInstanceOf(Object);
+      expect(response.sdIncentiveData).toBeInstanceOf(Object);
+      expect(typeof response.lIncentiveData.emissionPerSecond).toEqual('string');
+      expect(typeof response.lIncentiveData.emissionEndTimestamp).toEqual('number');
     });
   });
 
@@ -30,10 +30,10 @@ describe('rpc', () => {
       expect(result).toBeInstanceOf(Array);
       const response = result[0];
       expect(response).toBeInstanceOf(Object);
-      expect(response.aTokenIncentivesUserData).toBeInstanceOf(Object);
-      expect(response.vTokenIncentivesUserData).toBeInstanceOf(Object);
-      expect(response.sTokenIncentivesUserData).toBeInstanceOf(Object);
-      expect(typeof response.aTokenIncentivesUserData.incentiveControllerAddress).toEqual('string');
+      expect(response.lTokenIncentivesUserData).toBeInstanceOf(Object);
+      expect(response.vdTokenIncentivesUserData).toBeInstanceOf(Object);
+      expect(response.sdTokenIncentivesUserData).toBeInstanceOf(Object);
+      expect(typeof response.lTokenIncentivesUserData.incentiveControllerAddress).toEqual('string');
     });
   });
 });

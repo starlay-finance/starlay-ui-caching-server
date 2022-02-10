@@ -1,6 +1,6 @@
 import * as ethersUtils from 'ethers/lib/utils';
 import { BACKUP_RPC_URLS, RPC_MAX_TIMEOUT, RPC_URL } from '../../src/config';
-import { generate } from '../../src/custom-provider/aave-provider-manager';
+import { generate } from '../../src/custom-provider/starlay-provider-manager';
 
 jest.mock('ethers/lib/utils', () => ({
   __esModule: true,
@@ -36,7 +36,7 @@ const buildUsingBackupDefaultProvider = (
   });
 };
 
-describe('AaveCustomProvider', () => {
+describe('StarlayCustomProvider', () => {
   beforeEach(() => {
     jest
       .spyOn(ethersUtils, 'fetchJson')

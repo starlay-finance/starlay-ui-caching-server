@@ -27,7 +27,7 @@ export class ReserveData {
   usageAsCollateralEnabled: boolean;
 
   @Field()
-  aTokenAddress: string;
+  lTokenAddress: string;
 
   @Field()
   stableDebtTokenAddress: string;
