@@ -17,14 +17,14 @@ export const fetchAndAdd = async (poolAddress: string) => {
     lendingPoolAddressProvider: poolAddress,
   });
   poolIncentives.forEach((reserve) => {
-    if (reserve.aIncentiveData.emissionEndTimestamp !== 0) {
-      reservesList.push(reserve.aIncentiveData.tokenAddress);
+    if (reserve.lIncentiveData.emissionEndTimestamp !== 0) {
+      reservesList.push(reserve.lIncentiveData.tokenAddress);
     }
-    if (reserve.sIncentiveData.emissionEndTimestamp !== 0) {
-      reservesList.push(reserve.sIncentiveData.tokenAddress);
+    if (reserve.sdIncentiveData.emissionEndTimestamp !== 0) {
+      reservesList.push(reserve.sdIncentiveData.tokenAddress);
     }
-    if (reserve.vIncentiveData.emissionEndTimestamp !== 0) {
-      reservesList.push(reserve.vIncentiveData.tokenAddress);
+    if (reserve.vdIncentiveData.emissionEndTimestamp !== 0) {
+      reservesList.push(reserve.vdIncentiveData.tokenAddress);
     }
   });
 

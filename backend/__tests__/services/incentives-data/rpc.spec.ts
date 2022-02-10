@@ -15,11 +15,11 @@ describe('rpc', () => {
       expect(result).toBeInstanceOf(Array);
       const response = result[0];
       expect(response).toBeInstanceOf(Object);
-      expect(response.aIncentiveData).toBeInstanceOf(Object);
-      expect(response.vIncentiveData).toBeInstanceOf(Object);
-      expect(response.sIncentiveData).toBeInstanceOf(Object);
-      expect(typeof response.aIncentiveData.emissionPerSecond).toEqual('string');
-      expect(typeof response.aIncentiveData.emissionEndTimestamp).toEqual('number');
+      expect(response.lIncentiveData).toBeInstanceOf(Object);
+      expect(response.vdIncentiveData).toBeInstanceOf(Object);
+      expect(response.sdIncentiveData).toBeInstanceOf(Object);
+      expect(typeof response.lIncentiveData.emissionPerSecond).toEqual('string');
+      expect(typeof response.lIncentiveData.emissionEndTimestamp).toEqual('number');
     });
   });
 

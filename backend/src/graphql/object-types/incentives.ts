@@ -45,11 +45,11 @@ export class ReserveIncentivesData {
   underlyingAsset: string;
 
   @Field(() => IncentivesData)
-  aIncentiveData: IncentivesData;
+  lIncentiveData: IncentivesData;
 
   @Field(() => IncentivesData)
-  vIncentiveData: IncentivesData;
+  vdIncentiveData: IncentivesData;
 
   @Field(() => IncentivesData)
-  sIncentiveData: IncentivesData;
+  sdIncentiveData: IncentivesData;
 }

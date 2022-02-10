@@ -44,9 +44,9 @@ export const init = async (
   });
   const incentiveControllers: string[] = [];
   reserveIncentives.forEach((incentive: ReserveIncentivesData) => {
-    const aIncentiveController = incentive.aIncentiveData.incentiveControllerAddress.toLowerCase();
-    const sIncentiveController = incentive.sIncentiveData.incentiveControllerAddress.toLowerCase();
-    const vIncentiveController = incentive.vIncentiveData.incentiveControllerAddress.toLowerCase();
+    const aIncentiveController = incentive.lIncentiveData.incentiveControllerAddress.toLowerCase();
+    const sIncentiveController = incentive.sdIncentiveData.incentiveControllerAddress.toLowerCase();
+    const vIncentiveController = incentive.vdIncentiveData.incentiveControllerAddress.toLowerCase();
     if (incentiveControllers.indexOf(aIncentiveController) === -1) {
       incentiveControllers.push(aIncentiveController);
     }
