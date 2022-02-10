@@ -1,14 +1,14 @@
 import { providers } from 'ethers';
 import { fetchJson } from 'ethers/lib/utils';
-import { AaveProviderContext } from './models/aave-provider-context';
 import { AlreadyUsedNodeContext } from './models/already-used-node-context';
 import { InternalAaveProviderContext } from './models/internal-aave-provider-context';
+import { StarlayProviderContext } from './models/starlay-provider-context';
 
 export class AaveCustomProvider extends providers.StaticJsonRpcProvider {
   private _alreadyUsedNodes: AlreadyUsedNodeContext[] = [];
   private _mainNode: string | undefined;
   constructor(
-    private _context: AaveProviderContext | InternalAaveProviderContext,
+    private _context: StarlayProviderContext | InternalAaveProviderContext,
     private _generate: (context: InternalAaveProviderContext) => AaveCustomProvider
   ) {
     super({ url: _context.selectedNode, throttleSlotInterval: _context.maxTimout });
