@@ -4,17 +4,17 @@ import { AlreadyUsedNodeContext } from './models/already-used-node-context';
 import { InternalStarlayProviderContext } from './models/internal-starlay-provider-context';
 import { StarlayProviderContext } from './models/starlay-provider-context';
 
-export class AaveCustomProvider extends providers.StaticJsonRpcProvider {
+export class StarlayCustomProvider extends providers.StaticJsonRpcProvider {
   private _alreadyUsedNodes: AlreadyUsedNodeContext[] = [];
   private _mainNode: string | undefined;
   constructor(
     private _context: StarlayProviderContext | InternalStarlayProviderContext,
-    private _generate: (context: InternalStarlayProviderContext) => AaveCustomProvider
+    private _generate: (context: InternalStarlayProviderContext) => StarlayCustomProvider
   ) {
     super({ url: _context.selectedNode, throttleSlotInterval: _context.maxTimout });
 
     // get the internal context so we dont cast everywhere but we have checks below
-    // to make sure we map to the correct context aka `AaveProviderContext | InternalStarlayProviderContext`
+    // to make sure we map to the correct context aka `StarlayProviderContext | InternalStarlayProviderContext`
     const internalStarlayProviderContext = this.getInternalStarlayProviderContext();
 
     if (internalStarlayProviderContext.alreadyUsedNodes) {
