@@ -30,10 +30,10 @@ describe('rpc', () => {
       expect(result).toBeInstanceOf(Array);
       const response = result[0];
       expect(response).toBeInstanceOf(Object);
-      expect(response.aTokenIncentivesUserData).toBeInstanceOf(Object);
-      expect(response.vTokenIncentivesUserData).toBeInstanceOf(Object);
-      expect(response.sTokenIncentivesUserData).toBeInstanceOf(Object);
-      expect(typeof response.aTokenIncentivesUserData.incentiveControllerAddress).toEqual('string');
+      expect(response.lTokenIncentivesUserData).toBeInstanceOf(Object);
+      expect(response.vdTokenIncentivesUserData).toBeInstanceOf(Object);
+      expect(response.sdTokenIncentivesUserData).toBeInstanceOf(Object);
+      expect(typeof response.lTokenIncentivesUserData.incentiveControllerAddress).toEqual('string');
     });
   });
 });
