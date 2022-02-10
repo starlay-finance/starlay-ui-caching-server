@@ -1,0 +1,524 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Placeholder Empty 1`] = `
+Array [
+  Object {
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": Object {
+      "name": "cache-dev",
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "labels": Object {
+        "component": "api",
+      },
+      "name": "api",
+      "namespace": "cache-dev",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "name": "http",
+          "port": 80,
+          "protocol": "TCP",
+          "targetPort": 3000,
+        },
+      ],
+      "selector": Object {
+        "component": "api",
+      },
+      "type": "NodePort",
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "labels": Object {
+        "component": "api",
+      },
+      "name": "api",
+      "namespace": "cache-dev",
+    },
+    "spec": Object {
+      "progressDeadlineSeconds": 180,
+      "replicas": 2,
+      "selector": Object {
+        "matchLabels": Object {
+          "component": "api",
+        },
+      },
+      "strategy": Object {
+        "rollingUpdate": Object {
+          "maxSurge": 1,
+          "maxUnavailable": 0,
+        },
+        "type": "RollingUpdate",
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "component": "api",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "command": Array [
+                "npm",
+                "run",
+                "prod",
+              ],
+              "env": Array [
+                Object {
+                  "name": "REDIS_HOST",
+                  "value": "redis",
+                },
+                Object {
+                  "name": "RPC_URL",
+                  "value": "https://rpc.shibuya.astar.network:8545",
+                },
+                Object {
+                  "name": "CHAIN_ID",
+                  "value": "81",
+                },
+              ],
+              "image": "gcr.io/vein-dev-339807/vein-dev:latest",
+              "imagePullPolicy": "Always",
+              "name": "main",
+              "ports": Array [
+                Object {
+                  "containerPort": 3000,
+                  "name": "http",
+                  "protocol": "TCP",
+                },
+              ],
+              "readinessProbe": Object {
+                "httpGet": Object {
+                  "path": "/.well-known/apollo/server-health",
+                  "port": 3000,
+                },
+                "initialDelaySeconds": 10,
+                "periodSeconds": 10,
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "labels": Object {
+        "component": "protocol-data-loader",
+      },
+      "name": "protocol-data-loader",
+      "namespace": "cache-dev",
+    },
+    "spec": Object {
+      "progressDeadlineSeconds": 180,
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "component": "protocol-data-loader",
+        },
+      },
+      "strategy": Object {
+        "rollingUpdate": Object {
+          "maxSurge": 1,
+          "maxUnavailable": 0,
+        },
+        "type": "RollingUpdate",
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "component": "protocol-data-loader",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "command": Array [
+                "npm",
+                "run",
+                "job:update-general-reserves-data",
+              ],
+              "env": Array [
+                Object {
+                  "name": "REDIS_HOST",
+                  "value": "redis",
+                },
+                Object {
+                  "name": "RPC_URL",
+                  "value": "https://rpc.shibuya.astar.network:8545",
+                },
+                Object {
+                  "name": "CHAIN_ID",
+                  "value": "81",
+                },
+              ],
+              "image": "gcr.io/vein-dev-339807/vein-dev:latest",
+              "imagePullPolicy": "Always",
+              "name": "main",
+              "ports": Array [
+                Object {
+                  "containerPort": 3000,
+                  "name": "http",
+                  "protocol": "TCP",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "labels": Object {
+        "component": "reserve-incentives",
+      },
+      "name": "reserve-incentives",
+      "namespace": "cache-dev",
+    },
+    "spec": Object {
+      "progressDeadlineSeconds": 180,
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "component": "reserve-incentives",
+        },
+      },
+      "strategy": Object {
+        "rollingUpdate": Object {
+          "maxSurge": 1,
+          "maxUnavailable": 0,
+        },
+        "type": "RollingUpdate",
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "component": "reserve-incentives",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "command": Array [
+                "npm",
+                "run",
+                "job:update-reserve-incentives-data",
+              ],
+              "env": Array [
+                Object {
+                  "name": "REDIS_HOST",
+                  "value": "redis",
+                },
+                Object {
+                  "name": "RPC_URL",
+                  "value": "https://rpc.shibuya.astar.network:8545",
+                },
+                Object {
+                  "name": "CHAIN_ID",
+                  "value": "81",
+                },
+              ],
+              "image": "gcr.io/vein-dev-339807/vein-dev:latest",
+              "imagePullPolicy": "Always",
+              "name": "main",
+              "ports": Array [
+                Object {
+                  "containerPort": 3000,
+                  "name": "http",
+                  "protocol": "TCP",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "labels": Object {
+        "component": "user-incentives",
+      },
+      "name": "user-incentives",
+      "namespace": "cache-dev",
+    },
+    "spec": Object {
+      "progressDeadlineSeconds": 180,
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "component": "user-incentives",
+        },
+      },
+      "strategy": Object {
+        "rollingUpdate": Object {
+          "maxSurge": 1,
+          "maxUnavailable": 0,
+        },
+        "type": "RollingUpdate",
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "component": "user-incentives",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "command": Array [
+                "npm",
+                "run",
+                "job:update-users-incentives-data",
+              ],
+              "env": Array [
+                Object {
+                  "name": "REDIS_HOST",
+                  "value": "redis",
+                },
+                Object {
+                  "name": "RPC_URL",
+                  "value": "https://rpc.shibuya.astar.network:8545",
+                },
+                Object {
+                  "name": "CHAIN_ID",
+                  "value": "81",
+                },
+              ],
+              "image": "gcr.io/vein-dev-339807/vein-dev:latest",
+              "imagePullPolicy": "Always",
+              "name": "main",
+              "ports": Array [
+                Object {
+                  "containerPort": 3000,
+                  "name": "http",
+                  "protocol": "TCP",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "labels": Object {
+        "component": "user-data-loader",
+      },
+      "name": "user-data-loader",
+      "namespace": "cache-dev",
+    },
+    "spec": Object {
+      "progressDeadlineSeconds": 180,
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "component": "user-data-loader",
+        },
+      },
+      "strategy": Object {
+        "rollingUpdate": Object {
+          "maxSurge": 1,
+          "maxUnavailable": 0,
+        },
+        "type": "RollingUpdate",
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "component": "user-data-loader",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "command": Array [
+                "npm",
+                "run",
+                "job:update-users-data",
+              ],
+              "env": Array [
+                Object {
+                  "name": "REDIS_HOST",
+                  "value": "redis",
+                },
+                Object {
+                  "name": "RPC_URL",
+                  "value": "https://rpc.shibuya.astar.network:8545",
+                },
+                Object {
+                  "name": "CHAIN_ID",
+                  "value": "81",
+                },
+              ],
+              "image": "gcr.io/vein-dev-339807/vein-dev:latest",
+              "imagePullPolicy": "Always",
+              "name": "main",
+              "ports": Array [
+                Object {
+                  "containerPort": 3000,
+                  "name": "http",
+                  "protocol": "TCP",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "labels": Object {
+        "component": "update-block-number-loader",
+      },
+      "name": "update-block-number-loader",
+      "namespace": "cache-dev",
+    },
+    "spec": Object {
+      "progressDeadlineSeconds": 180,
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "component": "update-block-number-loader",
+        },
+      },
+      "strategy": Object {
+        "rollingUpdate": Object {
+          "maxSurge": 1,
+          "maxUnavailable": 0,
+        },
+        "type": "RollingUpdate",
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "component": "update-block-number-loader",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "command": Array [
+                "npm",
+                "run",
+                "job:update-block-number",
+              ],
+              "env": Array [
+                Object {
+                  "name": "REDIS_HOST",
+                  "value": "redis",
+                },
+                Object {
+                  "name": "RPC_URL",
+                  "value": "https://rpc.shibuya.astar.network:8545",
+                },
+                Object {
+                  "name": "CHAIN_ID",
+                  "value": "81",
+                },
+              ],
+              "image": "gcr.io/vein-dev-339807/vein-dev:latest",
+              "imagePullPolicy": "Always",
+              "name": "main",
+              "ports": Array [
+                Object {
+                  "containerPort": 3000,
+                  "name": "http",
+                  "protocol": "TCP",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  },
+  Object {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": Object {
+      "labels": Object {
+        "component": "redis",
+      },
+      "name": "redis",
+      "namespace": "cache-dev",
+    },
+    "spec": Object {
+      "ports": Array [
+        Object {
+          "name": "redis",
+          "port": 6379,
+        },
+      ],
+      "selector": Object {
+        "component": "redis",
+      },
+    },
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "labels": Object {
+        "component": "redis",
+      },
+      "name": "redis",
+      "namespace": "cache-dev",
+    },
+    "spec": Object {
+      "replicas": 1,
+      "selector": Object {
+        "matchLabels": Object {
+          "component": "redis",
+        },
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "component": "redis",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "image": "redis:6-alpine",
+              "imagePullPolicy": "Always",
+              "name": "main",
+              "ports": Array [
+                Object {
+                  "containerPort": 6379,
+                  "name": "redis",
+                  "protocol": "TCP",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  },
+]
+`;

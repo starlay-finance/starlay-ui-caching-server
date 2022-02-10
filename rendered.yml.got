@@ -1,0 +1,443 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cache-dev
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: api
+  name: api
+  namespace: cache-dev
+spec:
+  #add
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      #add
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    component: api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: api
+  name: api
+  namespace: cache-dev
+spec:
+  progressDeadlineSeconds: 180
+  replicas: 2
+  selector:
+    matchLabels:
+      component: api
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        component: api
+    spec:
+      containers:
+        - command:
+            - npm
+            - run
+            - prod
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: RPC_URL
+              value: https://polygon-rpc.com
+            - name: CHAIN_ID
+              value: "137"
+          image: gcr.io/vein-dev-339807/vein-dev:latest
+          imagePullPolicy: Always
+          name: main
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /.well-known/apollo/server-health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: protocol-data-loader
+  name: protocol-data-loader
+  namespace: cache-dev
+spec:
+  progressDeadlineSeconds: 180
+  replicas: 1
+  selector:
+    matchLabels:
+      component: protocol-data-loader
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        component: protocol-data-loader
+    spec:
+      containers:
+        - command:
+            - npm
+            - run
+            - job:update-general-reserves-data
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: RPC_URL
+              value: https://polygon-rpc.com
+            - name: CHAIN_ID
+              value: "137"
+          image: gcr.io/vein-dev-339807/vein-dev:latest
+          imagePullPolicy: Always
+          name: main
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: reserve-incentives
+  name: reserve-incentives
+  namespace: cache-dev
+spec:
+  progressDeadlineSeconds: 180
+  replicas: 1
+  selector:
+    matchLabels:
+      component: reserve-incentives
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        component: reserve-incentives
+    spec:
+      containers:
+        - command:
+            - npm
+            - run
+            - job:update-reserve-incentives-data
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: RPC_URL
+              value: https://polygon-rpc.com
+            - name: CHAIN_ID
+              value: "137"
+          image: gcr.io/vein-dev-339807/vein-dev:latest
+          imagePullPolicy: Always
+          name: main
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: user-incentives
+  name: user-incentives
+  namespace: cache-dev
+spec:
+  progressDeadlineSeconds: 180
+  replicas: 1
+  selector:
+    matchLabels:
+      component: user-incentives
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        component: user-incentives
+    spec:
+      containers:
+        - command:
+            - npm
+            - run
+            - job:update-users-incentives-data
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: RPC_URL
+              value: https://polygon-rpc.com
+            - name: CHAIN_ID
+              value: "137"
+          image: gcr.io/vein-dev-339807/vein-dev:latest
+          imagePullPolicy: Always
+          name: main
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: user-data-loader
+  name: user-data-loader
+  namespace: cache-dev
+spec:
+  progressDeadlineSeconds: 180
+  replicas: 1
+  selector:
+    matchLabels:
+      component: user-data-loader
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        component: user-data-loader
+    spec:
+      containers:
+        - command:
+            - npm
+            - run
+            - job:update-users-data
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: RPC_URL
+              value: https://polygon-rpc.com
+            - name: CHAIN_ID
+              value: "137"
+          image: gcr.io/vein-dev-339807/vein-dev:latest
+          imagePullPolicy: Always
+          name: main
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: update-block-number-loader
+  name: update-block-number-loader
+  namespace: cache-dev
+spec:
+  progressDeadlineSeconds: 180
+  replicas: 1
+  selector:
+    matchLabels:
+      component: update-block-number-loader
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        component: update-block-number-loader
+    spec:
+      containers:
+        - command:
+            - npm
+            - run
+            - job:update-block-number
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: RPC_URL
+              value: https://polygon-rpc.com
+            - name: CHAIN_ID
+              value: "137"
+          image: gcr.io/vein-dev-339807/vein-dev:latest
+          imagePullPolicy: Always
+          name: main
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: stake-general-data-loader
+  name: stake-general-data-loader
+  namespace: cache-dev
+spec:
+  progressDeadlineSeconds: 180
+  replicas: 1
+  selector:
+    matchLabels:
+      component: stake-general-data-loader
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        component: stake-general-data-loader
+    spec:
+      containers:
+        - command:
+            - npm
+            - run
+            - job:update-stake-general-ui-data
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: RPC_URL
+              value: https://polygon-rpc.com
+            - name: CHAIN_ID
+              value: "137"
+          image: gcr.io/vein-dev-339807/vein-dev:latest
+          imagePullPolicy: Always
+          name: main
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: stake-user-data-loader
+  name: stake-user-data-loader
+  namespace: cache-dev
+spec:
+  progressDeadlineSeconds: 180
+  replicas: 1
+  selector:
+    matchLabels:
+      component: stake-user-data-loader
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        component: stake-user-data-loader
+    spec:
+      containers:
+        - command:
+            - npm
+            - run
+            - job:update-stake-user-ui-data
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: RPC_URL
+              value: https://polygon-rpc.com
+            - name: CHAIN_ID
+              value: "137"
+          image: gcr.io/vein-dev-339807/vein-dev:latest
+          imagePullPolicy: Always
+          name: main
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: redis
+  name: redis
+  namespace: cache-dev
+spec:
+  ports:
+    - name: redis
+      port: 6379
+  selector:
+    component: redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: redis
+  name: redis
+  namespace: cache-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: redis
+  template:
+    metadata:
+      labels:
+        component: redis
+    spec:
+      containers:
+        - image: redis:6-alpine
+          imagePullPolicy: Always
+          name: main
+          ports:
+            - containerPort: 6379
+              name: redis
+              protocol: TCP
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+  namespace: cache-dev
+spec:
+  acme:
+    email: momodarou2015@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-account-key
+    solvers:
+      - dns01:
+          cloudDNS:
+            project: vein-dev-339807
+            serviceAccountSecretRef:
+              name: clouddns-dns01-solver-svc-acct
+              key: service-account.json
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vein
+  namespace: cache-dev
+spec:
+  secretName: veindev-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - "*.vein-dev.tk"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-dev
+  namespace: cache-dev
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "api-static-ip"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+    - hosts:
+        - api.vein-dev.tk
+      secretName: veindev-tls
+  rules:
+    - host: api.vein-dev.tk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 80

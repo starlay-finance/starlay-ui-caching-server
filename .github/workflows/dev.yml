@@ -1,0 +1,63 @@
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      image_name: ${{ steps.build.outputs.image_name }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/build
+        name: Build image
+        id: build
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/test
+        name: Run tests
+
+  deploy_dev:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "16"
+      - uses: azure/setup-kubectl@v2.0
+        with:
+          version: "v1.21.5"
+        id: install
+      - name: Setup tools
+        run: yarn global add typescript cdk8s-cli gcloud-cli
+      - name: Setup dependencies
+        run: |
+          cd cdk8s/
+      - name: Build
+        run: |
+          cd cdk8s/
+          yarn && yarn compile
+      - name: Render resources
+        run: |
+          cd cdk8s/
+          yarn synth:dev
+        env:
+          IMAGE: ${{ needs.build.outputs.image_name }}
+      - name: GCP Auth
+        uses: google-github-actions/auth@v0.4.0
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: Get GKE credentials
+        uses: google-github-actions/get-gke-credentials@v0.4.0
+        with:
+          cluster_name: ${{ secrets.GKE_CLUSTER }}
+          location: ${{ secrets.GKE_CLUSTER_REGION }}
+      - name: Apply k8s resources
+        run: |
+          kubectl apply -f cdk8s/dist/backend.k8s.yaml
+          kubectl apply -f cdk8s/dist/ingress.k8s.yaml
