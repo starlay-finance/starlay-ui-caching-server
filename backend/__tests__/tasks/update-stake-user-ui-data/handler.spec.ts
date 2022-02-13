@@ -1,5 +1,5 @@
 import {
-  AAVE_TOKEN_ADDRESS,
+  LAY_TOKEN_ADDRESS,
   ABPT_TOKEN,
   STK_LAY_TOKEN_ADDRESS,
   STK_ABPT_TOKEN_ADDRESS,
@@ -46,7 +46,7 @@ describe('update-stake-user-ui-data', () => {
           ['RewardsClaimed(address,address,uint256)'],
         ],
         [
-          [STK_LAY_TOKEN_ADDRESS, STK_ABPT_TOKEN_ADDRESS, AAVE_TOKEN_ADDRESS, ABPT_TOKEN],
+          [STK_LAY_TOKEN_ADDRESS, STK_ABPT_TOKEN_ADDRESS, LAY_TOKEN_ADDRESS, ABPT_TOKEN],
           1,
           2,
           ['Transfer(address,address,uint256)'],

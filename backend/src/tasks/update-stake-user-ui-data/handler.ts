@@ -23,7 +23,7 @@ export const handler = async () => {
           [
             STAKING_CONFIG.STK_LAY_TOKEN_ADDRESS,
             STAKING_CONFIG.STK_ABPT_TOKEN_ADDRESS,
-            STAKING_CONFIG.AAVE_TOKEN_ADDRESS,
+            STAKING_CONFIG.LAY_TOKEN_ADDRESS,
             STAKING_CONFIG.ABPT_TOKEN,
           ],
           blockContext.lastSeenBlock,
