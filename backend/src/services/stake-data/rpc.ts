@@ -7,15 +7,15 @@ import StakeUiHelperI from './contract';
  * @param userAddress The user address
  */
 export const getUserStakeUIDataRPC = async (userAddress: string): Promise<StakeUserUIData> => {
-  const { 0: aave, 1: bpt, 2: usdPriceEth } = await StakeUiHelperI!.getUserStakeUIData(userAddress);
+  const { 0: starlay, 1: bpt, 2: usdPriceEth } = await StakeUiHelperI!.getUserStakeUIData(userAddress);
 
   return {
-    aave: {
-      stakeTokenUserBalance: aave.stakeTokenUserBalance.toHexString(),
-      underlyingTokenUserBalance: aave.underlyingTokenUserBalance.toHexString(),
-      userCooldown: aave.userCooldown.toNumber(),
-      userIncentivesToClaim: aave.userIncentivesToClaim.toHexString(),
-      userPermitNonce: aave.userPermitNonce.toHexString(),
+    starlay: {
+      stakeTokenUserBalance: starlay.stakeTokenUserBalance.toHexString(),
+      underlyingTokenUserBalance: starlay.underlyingTokenUserBalance.toHexString(),
+      userCooldown: starlay.userCooldown.toNumber(),
+      userIncentivesToClaim: starlay.userIncentivesToClaim.toHexString(),
+      userPermitNonce: starlay.userPermitNonce.toHexString(),
     },
     bpt: {
       stakeTokenUserBalance: bpt.stakeTokenUserBalance.toHexString(),
@@ -32,18 +32,18 @@ export const getUserStakeUIDataRPC = async (userAddress: string): Promise<StakeU
  * Get the stake general data using rpc
  */
 export const getGeneralStakeUIDataRPC = async (): Promise<StakeGeneralUIData> => {
-  const { 0: aave, 1: bpt, 2: usdPriceEth } = await StakeUiHelperI!.getGeneralStakeUIData();
+  const { 0: starlay, 1: bpt, 2: usdPriceEth } = await StakeUiHelperI!.getGeneralStakeUIData();
 
   return {
-    aave: {
-      stakeTokenTotalSupply: aave.stakeTokenTotalSupply.toHexString(),
-      stakeCooldownSeconds: aave.stakeCooldownSeconds.toNumber(),
-      stakeUnstakeWindow: aave.stakeUnstakeWindow.toNumber(),
-      stakeTokenPriceEth: aave.stakeTokenPriceEth.toHexString(),
-      rewardTokenPriceEth: aave.rewardTokenPriceEth.toHexString(),
-      stakeApy: aave.stakeApy.toHexString(),
-      distributionPerSecond: aave.distributionPerSecond.toHexString(),
-      distributionEnd: aave.distributionEnd.toHexString(),
+    starlay: {
+      stakeTokenTotalSupply: starlay.stakeTokenTotalSupply.toHexString(),
+      stakeCooldownSeconds: starlay.stakeCooldownSeconds.toNumber(),
+      stakeUnstakeWindow: starlay.stakeUnstakeWindow.toNumber(),
+      stakeTokenPriceEth: starlay.stakeTokenPriceEth.toHexString(),
+      rewardTokenPriceEth: starlay.rewardTokenPriceEth.toHexString(),
+      stakeApy: starlay.stakeApy.toHexString(),
+      distributionPerSecond: starlay.distributionPerSecond.toHexString(),
+      distributionEnd: starlay.distributionEnd.toHexString(),
     },
     bpt: {
       stakeTokenTotalSupply: bpt.stakeTokenTotalSupply.toHexString(),

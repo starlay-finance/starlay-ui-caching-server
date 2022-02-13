@@ -30,7 +30,7 @@ export class StakeGeneralData {
 @ObjectType()
 export class StakeGeneralUIData {
   @Field(() => StakeGeneralData)
-  aave: StakeGeneralData;
+  starlay: StakeGeneralData;
 
   @Field(() => StakeGeneralData)
   bpt: StakeGeneralData;
