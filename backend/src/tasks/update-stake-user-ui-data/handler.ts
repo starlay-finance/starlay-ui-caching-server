@@ -14,14 +14,14 @@ export const handler = async () => {
     if (blockContext.shouldExecute) {
       const [claimedRewardUsers, transferUsers] = await Promise.all([
         getUsersFromLogs(
-          [STAKING_CONFIG.STK_AAVE_TOKEN_ADDRESS, STAKING_CONFIG.STK_ABPT_TOKEN_ADDRESS],
+          [STAKING_CONFIG.STK_LAY_TOKEN_ADDRESS, STAKING_CONFIG.STK_ABPT_TOKEN_ADDRESS],
           blockContext.lastSeenBlock,
           blockContext.currentBlock,
           ['RewardsClaimed(address,address,uint256)']
         ),
         getUsersFromLogs(
           [
-            STAKING_CONFIG.STK_AAVE_TOKEN_ADDRESS,
+            STAKING_CONFIG.STK_LAY_TOKEN_ADDRESS,
             STAKING_CONFIG.STK_ABPT_TOKEN_ADDRESS,
             STAKING_CONFIG.AAVE_TOKEN_ADDRESS,
             STAKING_CONFIG.ABPT_TOKEN,

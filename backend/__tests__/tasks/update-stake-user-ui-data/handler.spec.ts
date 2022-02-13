@@ -1,7 +1,7 @@
 import {
   AAVE_TOKEN_ADDRESS,
   ABPT_TOKEN,
-  STK_AAVE_TOKEN_ADDRESS,
+  STK_LAY_TOKEN_ADDRESS,
   STK_ABPT_TOKEN_ADDRESS,
 } from '../../../src/config';
 import * as ethereum from '../../../src/helpers/ethereum';
@@ -40,13 +40,13 @@ describe('update-stake-user-ui-data', () => {
       expect(spy).toHaveBeenCalledTimes(2);
       expect(spy.mock.calls).toEqual([
         [
-          [STK_AAVE_TOKEN_ADDRESS, STK_ABPT_TOKEN_ADDRESS],
+          [STK_LAY_TOKEN_ADDRESS, STK_ABPT_TOKEN_ADDRESS],
           1,
           2,
           ['RewardsClaimed(address,address,uint256)'],
         ],
         [
-          [STK_AAVE_TOKEN_ADDRESS, STK_ABPT_TOKEN_ADDRESS, AAVE_TOKEN_ADDRESS, ABPT_TOKEN],
+          [STK_LAY_TOKEN_ADDRESS, STK_ABPT_TOKEN_ADDRESS, AAVE_TOKEN_ADDRESS, ABPT_TOKEN],
           1,
           2,
           ['Transfer(address,address,uint256)'],
