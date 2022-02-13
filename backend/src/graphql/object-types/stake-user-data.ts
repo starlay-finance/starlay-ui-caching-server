@@ -21,7 +21,7 @@ export class StakeUserData {
 @ObjectType()
 export class StakeUserUIData {
   @Field(() => StakeUserData)
-  aave: StakeUserData;
+  starlay: StakeUserData;
 
   @Field(() => StakeUserData)
   bpt: StakeUserData;

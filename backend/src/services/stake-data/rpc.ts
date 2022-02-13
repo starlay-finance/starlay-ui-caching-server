@@ -10,7 +10,7 @@ export const getUserStakeUIDataRPC = async (userAddress: string): Promise<StakeU
   const { 0: starlay, 1: bpt, 2: usdPriceEth } = await StakeUiHelperI!.getUserStakeUIData(userAddress);
 
   return {
-    aave: {
+    starlay: {
       stakeTokenUserBalance: starlay.stakeTokenUserBalance.toHexString(),
       underlyingTokenUserBalance: starlay.underlyingTokenUserBalance.toHexString(),
       userCooldown: starlay.userCooldown.toNumber(),
@@ -35,7 +35,7 @@ export const getGeneralStakeUIDataRPC = async (): Promise<StakeGeneralUIData> =>
   const { 0: starlay, 1: bpt, 2: usdPriceEth } = await StakeUiHelperI!.getGeneralStakeUIData();
 
   return {
-    aave: {
+    starlay: {
       stakeTokenTotalSupply: starlay.stakeTokenTotalSupply.toHexString(),
       stakeCooldownSeconds: starlay.stakeCooldownSeconds.toNumber(),
       stakeUnstakeWindow: starlay.stakeUnstakeWindow.toNumber(),

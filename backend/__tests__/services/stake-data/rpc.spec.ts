@@ -9,10 +9,10 @@ describe('rpc', () => {
     it('should return `StakeUserUIData`', async () => {
       const result = await getUserStakeUIDataRPC(poolAddress);
       expect(result).toBeInstanceOf(Object);
-      expect(result.aave).toBeInstanceOf(Object);
-      expect(result.aave.stakeTokenUserBalance).not.toBeUndefined();
+      expect(result.starlay).toBeInstanceOf(Object);
+      expect(result.starlay.stakeTokenUserBalance).not.toBeUndefined();
       // @ts-ignore
-      expect(result.aave.stakeTokenTotalSupply).toBeUndefined();
+      expect(result.starlay.stakeTokenTotalSupply).toBeUndefined();
       expect(result.bpt).toBeInstanceOf(Object);
       expect(result.bpt.stakeTokenUserBalance).not.toBeUndefined();
       // @ts-ignore
@@ -25,10 +25,10 @@ describe('rpc', () => {
     it('should return `StakeGeneralUIData`', async () => {
       const result = await getGeneralStakeUIDataRPC();
       expect(result).toBeInstanceOf(Object);
-      expect(result.aave).toBeInstanceOf(Object);
-      expect(result.aave.stakeTokenTotalSupply).not.toBeUndefined();
+      expect(result.starlay).toBeInstanceOf(Object);
+      expect(result.starlay.stakeTokenTotalSupply).not.toBeUndefined();
       // @ts-ignore
-      expect(result.aave.stakeTokenUserBalance).toBeUndefined();
+      expect(result.starlay.stakeTokenUserBalance).toBeUndefined();
       expect(result.bpt).toBeInstanceOf(Object);
       expect(result.bpt.stakeTokenTotalSupply).not.toBeUndefined();
       // @ts-ignore
